@@ -1,0 +1,6 @@
+{
+  "appId": "com.nsht.spartan",
+  "appName": "Spartan",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
