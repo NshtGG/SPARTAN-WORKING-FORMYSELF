@@ -1,0 +1,244 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Montserrat', system-ui, sans-serif;
+  --font-display: 'Montserrat', system-ui, sans-serif;
+
+  --color-void: #08050a;
+  --color-ink: #0d0708;
+  --color-surface: #150a0d;
+  --color-surface-2: #1c0c10;
+  --color-surface-3: #250f14;
+  --color-surface-4: #37151b;
+
+  --color-text: #f6ecec;
+  --color-text-dim: #b09a9d;
+  --color-text-muted: #6a5257;
+
+  --color-blood: #e63946;
+  --color-blood-bright: #ff4d5a;
+  --color-blood-soft: #b1252f;
+  --color-blood-deep: #6b141b;
+  --color-ember: #ff6a55;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  background: #08050a;
+  color: #f6ecec;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #08050a;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  overflow: hidden;
+  touch-action: manipulation;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+button, .display {
+  font-family: 'Montserrat', system-ui, sans-serif;
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(230,57,70,0.25); border-radius: 4px; }
+
+::selection {
+  background: rgba(230,57,70,0.35);
+  color: #fff;
+}
+
+.glass {
+  background: linear-gradient(155deg, rgba(28,12,16,0.92), rgba(13,7,8,0.85));
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
+  border: 1px solid rgba(230,57,70,0.12);
+}
+
+.glass-soft {
+  background: rgba(20,10,12,0.6);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(230,57,70,0.08);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulseRing {
+  0% { box-shadow: 0 0 0 0 rgba(230,57,70,0.4); }
+  70% { box-shadow: 0 0 0 16px rgba(230,57,70,0); }
+  100% { box-shadow: 0 0 0 0 rgba(230,57,70,0); }
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-fade-up { animation: fadeInUp 0.55s cubic-bezier(0.22,1,0.36,1) both; }
+.animate-pulse-ring { animation: pulseRing 2.4s infinite; }
+
+input:focus, textarea:focus, select:focus {
+  box-shadow: 0 0 0 2px rgba(230,57,70,0.32), 0 0 22px rgba(230,57,70,0.08);
+}
+
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom, 16px); }
+
+.app-backdrop {
+  background-image:
+    linear-gradient(180deg, rgba(8,5,10,0.55) 0%, rgba(8,5,10,0.82) 55%, rgba(8,5,10,0.98) 100%),
+    url('/images/spartan-depths.jpg');
+  background-position: center;
+  background-size: cover;
+}
+
+.spartan-grid {
+  background-image:
+    linear-gradient(rgba(230,57,70,0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(230,57,70,0.028) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.red-button {
+  background: linear-gradient(135deg, #ff4d5a 0%, #c11824 100%);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  box-shadow:
+    0 12px 28px rgba(180,20,30,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.18),
+    inset 0 -1px 0 rgba(0,0,0,0.2);
+  transition: filter 150ms ease, transform 100ms ease;
+}
+.red-button:hover { filter: brightness(1.08); }
+.red-button:active { transform: translateY(1px) scale(0.99); }
+
+.ghost-button {
+  background: rgba(230,57,70,0.05);
+  border: 1px solid rgba(230,57,70,0.18);
+  color: #f6ecec;
+  font-weight: 700;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+.ghost-button:hover { background: rgba(230,57,70,0.1); border-color: rgba(230,57,70,0.32); }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.divider-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(230,57,70,0.22), transparent);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  font-weight: 800;
+  font-size: 10px;
+  color: #e63946;
+}
+
+/* ---------------------------------------------------------------
+   Maximalist layer — ornament that sits behind and around content.
+   Kept in CSS so it costs nothing at runtime and never blocks taps.
+   --------------------------------------------------------------- */
+
+/* Hairline engraved frame on panels */
+.ornate {
+  position: relative;
+}
+.ornate::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(255, 106, 85, 0.14);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Corner brackets — the "forged plate" look */
+.bracketed::before,
+.bracketed::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: rgba(230, 57, 70, 0.55);
+  pointer-events: none;
+}
+.bracketed::before {
+  top: 7px; left: 7px;
+  border-top: 2px solid; border-left: 2px solid;
+  border-top-left-radius: 8px;
+}
+.bracketed::after {
+  bottom: 7px; right: 7px;
+  border-bottom: 2px solid; border-right: 2px solid;
+  border-bottom-right-radius: 8px;
+}
+
+/* Laurel/ridge divider used between sections */
+.divider-ornate {
+  height: 14px;
+  background:
+    radial-gradient(circle at 50% 0, rgba(230, 57, 70, 0.5) 0 1.5px, transparent 2px),
+    linear-gradient(90deg, transparent, rgba(230, 57, 70, 0.35) 18%, rgba(255, 106, 85, 0.55) 50%, rgba(230, 57, 70, 0.35) 82%, transparent);
+  background-repeat: no-repeat;
+  background-size: 100% 100%, 100% 1px;
+  background-position: center top, center center;
+}
+
+/* Deep engraved headline treatment */
+.engraved {
+  text-shadow:
+    0 1px 0 rgba(255, 180, 165, 0.18),
+    0 -1px 0 rgba(0, 0, 0, 0.9),
+    0 0 26px rgba(230, 57, 70, 0.22);
+}
+
+/* Scanline/leather grain over the whole shell */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.22) 0 1px, transparent 1px 3px),
+    radial-gradient(circle at 20% 12%, rgba(230,57,70,0.07) 0, transparent 42%),
+    radial-gradient(circle at 84% 78%, rgba(255,106,85,0.06) 0, transparent 46%);
+}
+
+/* Brighter, heavier primary button for the maximalist pass */
+.red-button {
+  background: linear-gradient(180deg, #ff5a66 0%, #e63946 46%, #a81f29 100%);
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  border: 1px solid rgba(255, 140, 125, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 200, 190, 0.45),
+    inset 0 -2px 6px rgba(80, 8, 14, 0.6),
+    0 10px 30px rgba(230, 57, 70, 0.34);
+}
+.red-button:active {
+  box-shadow:
+    inset 0 2px 8px rgba(80, 8, 14, 0.75),
+    0 4px 14px rgba(230, 57, 70, 0.24);
+}
